@@ -13,8 +13,10 @@ public class AnswerButton : MonoBehaviour {
 	public bool isSelected;
 	public int aCounter;
 
-	// Use this for initialization
-	void Start () 
+    public List<string> currentAnswers = new List<string>();
+
+    // Use this for initialization
+    void Start () 
 	{
 		//Access the gamecontroller object
 		gameController = FindObjectOfType<GameConrtoller> ();
@@ -32,8 +34,15 @@ public class AnswerButton : MonoBehaviour {
 		//Get the answer data
 		answerData = data;
 
-		//Set the text on the button
-		answerText.text = answerData.answerText;
+        //Want to access this in gamemanager to stop it restarting at every button.
+        //Store the current answers in an array
+        currentAnswers.Add(answerData.answerText);
+        //Debug.Log("currentAnswers currently is storing: " + currentAnswers[0]);
+        Debug.Log("currentAnswers currently is storing: " + currentAnswers[0]);
+        Debug.Log("currentAnswers has size: " + currentAnswers.Count);
+
+        //Set the text on the button
+        answerText.text = answerData.answerText;
 	}
 
 	public int GetAnswerCount()
