@@ -41,8 +41,6 @@ public class GameConrtoller : MonoBehaviour {
 	private int maxScore = 75;
 	public bool next;
 
-	List<int> answerTrack = new List<int>();
-
 	List<int> unusedQuestions = new List<int>();
 
 	// Use this for initialization
@@ -56,14 +54,11 @@ public class GameConrtoller : MonoBehaviour {
 		//Load the questions into the questionPool
 		questionPool = currentRoundData.questions;
 
-		//Create an array to store all quesiton numebrs
-		//int[] unusedQuestions = new int[questionPool.Length];
-
 		//Load all the quesiton numbers into our array
 		for (int j = 0; j < questionPool.Length; j++) 
 		{
 			unusedQuestions.Add (j);
-			Debug.Log ("Element " + j + " is equal to " + unusedQuestions[j]);
+			//Debug.Log ("Element " + j + " is equal to " + unusedQuestions[j]);
 		}
 			
 		//Show the questions
@@ -89,7 +84,7 @@ public class GameConrtoller : MonoBehaviour {
 		playerScore = 0;
 		scoreDisplayText.text = "Score: " + playerScore.ToString ();
 
-		RemoveAnswerButtons (answerTrack);
+		RemoveAnswerButtons ();
 
 		//Set the current question to a random question
 		questionIndex = unusedQuestions[Random.Range(0, unusedQuestions.Count)];
@@ -141,13 +136,8 @@ public class GameConrtoller : MonoBehaviour {
 		
 	}
 
-	private void RemoveAnswerButtons(List<int> keep)
+	private void RemoveAnswerButtons()
 	{
-		foreach (int i in keep)
-		{
-			//answerButtonObjectPool.ReturnObject (answerButtonGameObjects [i]);
-			//answerButtonGameObjects.RemoveAt (i);
-		}
 		while (answerButtonGameObjects.Count > 0) 
 		{
 			answerButtonObjectPool.ReturnObject (answerButtonGameObjects [0]);
@@ -216,7 +206,7 @@ public class GameConrtoller : MonoBehaviour {
 			winScoreDisplay.text = "Score: " + playerScore.ToString () + " + " + Mathf.Round(timeRemaining).ToString () + " = " + (Mathf.Round(timeRemaining)+playerScore).ToString();
 			//questionDisplay.SetActive (false);
 			winDisplay.SetActive (true);
-			RemoveAnswerButtons (answerTrack);
+			RemoveAnswerButtons ();
 			if (roundCounter == roundLimit) 
 			{
 				nextRoundBtn.SetActive (false);
@@ -231,7 +221,7 @@ public class GameConrtoller : MonoBehaviour {
 			loseScoreDisplay.text = "Score: " + playerScore.ToString ();
 			//questionDisplay.SetActive (false);
 			roundEndDisplay.SetActive (true);
-			RemoveAnswerButtons (answerTrack);
+			RemoveAnswerButtons ();
 			if (roundCounter == roundLimit) 
 			{
 				Debug.Log ("User has lost the last round");

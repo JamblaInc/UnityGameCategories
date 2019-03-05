@@ -32,12 +32,6 @@ public class AnswerButton : MonoBehaviour {
 		//Get the answer data
 		answerData = data;
 
-        //Want to access this in gamemanager to stop it restarting at every button.
-        //Store the current answers in an array
-        //Debug.Log("currentAnswers currently is storing: " + currentAnswers[0]);
-        //Debug.Log("currentAnswers currently is storing: " + currentAnswers[0]);
-        //Debug.Log("currentAnswers has size: " + currentAnswers.Count);
-
         //Set the text on the button
         answerText.text = answerData.answerText;
 	}
@@ -63,8 +57,20 @@ public class AnswerButton : MonoBehaviour {
 			//Add the points to the score
 			gameController.AddPoints (answerData.isSpecial);
 
-			//Change the colour of the button
-			if (answerData.isSpecial) 
+            //Check that the current answer is in the currentAnswer list, if so, delete
+            if(gameController.currentAnswers.Contains(answerData.answerText))
+            {
+                gameController.currentAnswers.Remove(answerData.answerText);
+            }
+
+            //Print the entire list
+            for (int i = 0; i < gameController.currentAnswers.Count; i++)
+            {
+                Debug.Log(gameController.currentAnswers[i]);
+            }
+
+            //Change the colour of the button
+            if (answerData.isSpecial) 
 			{
 				gameObject.GetComponent<Button> ().image.color = Color.yellow;
 			} else 
@@ -80,8 +86,20 @@ public class AnswerButton : MonoBehaviour {
 			//Remove the points from the score
 			gameController.RemovePoints (answerData.isSpecial);
 
-			//Change the colour of the button
-			gameObject.GetComponent<Button> ().image.color = Color.white;
+            //Check that the current answer is in the currentAnswer list, if not, add
+            if (!gameController.currentAnswers.Contains(answerData.answerText))
+            {
+                gameController.currentAnswers.Add(answerData.answerText);
+            }
+
+            //Print the entire list
+            for(int i = 0; i < gameController.currentAnswers.Count; i++)
+            {
+                Debug.Log(gameController.currentAnswers[i]);
+            }
+
+            //Change the colour of the button
+            gameObject.GetComponent<Button> ().image.color = Color.white;
 		}
 
 		//Check if the answer is correct and handle the click in the GameController
