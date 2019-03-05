@@ -23,6 +23,7 @@ public class GameConrtoller : MonoBehaviour {
 
 	private DataController dataController;
 	private RoundData currentRoundData;
+    private AnswerButton currentAnswerButton;
 
 	private Question[] questionPool;
 
@@ -32,7 +33,10 @@ public class GameConrtoller : MonoBehaviour {
 	private int playerScore;
 	private List<GameObject> answerButtonGameObjects = new List<GameObject>();
 
-	private int roundCounter = 0;
+    //List to store the current answers
+    public List<string> currentAnswers = new List<string>();
+
+    private int roundCounter = 0;
 	public int roundLimit = 5;
 	private int maxScore = 75;
 	public bool next;
@@ -89,7 +93,7 @@ public class GameConrtoller : MonoBehaviour {
 
 		//Set the current question to a random question
 		questionIndex = unusedQuestions[Random.Range(0, unusedQuestions.Count)];
-		Debug.Log ("Current q index = " + questionIndex);
+		//Debug.Log ("Current q index = " + questionIndex);
 		Question questionData = questionPool [questionIndex];
 		questionDisplayText.text = questionData.questions;
 
@@ -105,9 +109,12 @@ public class GameConrtoller : MonoBehaviour {
 
 				AnswerButton answerButton = answerButtonGameObject.GetComponent<AnswerButton> ();
 
-				answerButton.SetUp (questionData.answers [i]);
-				//Debug.Log ("answerTrack reads: " + answerTrack[i]);
-				next = true;
+                //Setup the answerButtons on screen
+                answerButton.SetUp (questionData.answers [i]);
+
+                //Adding the current answers to a list
+                currentAnswers.Add(answerButton.returnAnswer());
+                next = true;
 			} 
 		} else 
 		{
@@ -120,14 +127,18 @@ public class GameConrtoller : MonoBehaviour {
 
 				AnswerButton answerButton = answerButtonGameObject.GetComponent<AnswerButton> ();
 
-				answerButton.SetUp (questionData.answers [6-i]);
-				next = false;
+                //Setup the answerButtons on screen
+                answerButton.SetUp (questionData.answers [6-i]);
+
+                //Adding the current answers to a list
+                currentAnswers.Add(answerButton.returnAnswer());
+                next = false;
 			} 
 		}
 
 		//Remove the question that has been used from the list
 		unusedQuestions.Remove (questionIndex);
-		Debug.Log ("Question index: " + questionIndex + " has been removed from list");
+		
 	}
 
 	private void RemoveAnswerButtons(List<int> keep)
