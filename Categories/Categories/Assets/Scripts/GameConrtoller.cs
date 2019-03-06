@@ -17,9 +17,10 @@ public class GameConrtoller : MonoBehaviour {
 	public GameObject roundEndDisplay;
 	public GameObject winDisplay;
 	public GameObject nextRoundBtn;
-	public Text highScoreDisplay;
+	//public Text highScoreDisplay;
 	public Text winScoreDisplay;
 	public Text loseScoreDisplay;
+    public Text missedAnswerDisplay;
 
 	private DataController dataController;
 	private RoundData currentRoundData;
@@ -207,12 +208,8 @@ public class GameConrtoller : MonoBehaviour {
 			//questionDisplay.SetActive (false);
 			winDisplay.SetActive (true);
 			RemoveAnswerButtons ();
-			if (roundCounter == roundLimit) 
-			{
-				nextRoundBtn.SetActive (false);
-				Debug.Log ("User has won the last round");
-				StartCoroutine (waiter (2));
-			}
+            
+			
 		} else if (!win) 
 		{
 			isRoundActive = false;
@@ -222,17 +219,25 @@ public class GameConrtoller : MonoBehaviour {
 			//questionDisplay.SetActive (false);
 			roundEndDisplay.SetActive (true);
 			RemoveAnswerButtons ();
-			if (roundCounter == roundLimit) 
-			{
-				Debug.Log ("User has lost the last round");
-				StartCoroutine (waiter (2));
-			}
+
+            //Display the answers that the player missed
+            for (int i = 0; i < currentAnswers.Count; i++)
+            {
+                missedAnswerDisplay.text += "\n" + currentAnswers[i].ToString();
+            }
 		} else 
 		{
 			Debug.Log ("Something has gone horribly wrong");
 			Application.Quit ();
 		}
-	}
+
+        //End the round
+        if (roundCounter == roundLimit)
+        {
+            Debug.Log("User has lost the last round");
+            StartCoroutine(waiter(2));
+        }
+    }
 
 	public void ReturnToMenu()
 	{	

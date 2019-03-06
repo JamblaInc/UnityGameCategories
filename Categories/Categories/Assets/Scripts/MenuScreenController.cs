@@ -7,7 +7,7 @@ public class MenuScreenController : MonoBehaviour {
 
 	public void StartGame()
 	{
-		SceneManager.LoadScene ("StarterScene");
+		SceneManager.LoadScene ("MainGameScene");
 	}
 
 	public void LoadInstructions()
