@@ -71,6 +71,9 @@ public class GameConrtoller : MonoBehaviour {
 
 	public void ShowQuestion()
 	{
+        //Reset the missed answers text
+        missedAnswerDisplay.text = "";
+
 		roundCounter++;
 		winDisplay.SetActive (false);
 		roundEndDisplay.SetActive (false);
@@ -208,9 +211,11 @@ public class GameConrtoller : MonoBehaviour {
 			//questionDisplay.SetActive (false);
 			winDisplay.SetActive (true);
 			RemoveAnswerButtons ();
-            
-			
-		} else if (!win) 
+
+            //Reset the current answers list
+            currentAnswers.Clear();
+
+        } else if (!win) 
 		{
 			isRoundActive = false;
 			dataController.SubmitNewPlayerScore (playerScore);
@@ -220,11 +225,18 @@ public class GameConrtoller : MonoBehaviour {
 			roundEndDisplay.SetActive (true);
 			RemoveAnswerButtons ();
 
+            //Sort the missed answers alphabetically before displaying them
+            currentAnswers.Sort();
+
             //Display the answers that the player missed
+            missedAnswerDisplay.text += "You missed:";
             for (int i = 0; i < currentAnswers.Count; i++)
             {
                 missedAnswerDisplay.text += "\n" + currentAnswers[i].ToString();
             }
+
+            //Reset the current answers list
+            currentAnswers.Clear();
 		} else 
 		{
 			Debug.Log ("Something has gone horribly wrong");
