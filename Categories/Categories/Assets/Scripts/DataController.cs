@@ -6,19 +6,37 @@ using System.IO;
 public class DataController : MonoBehaviour 
 {
 	private RoundData[] allRoundData;
-
+    public Settings settings;
 	private PlayerProgress playerProgress;
 	private string gameDataFileName = "data.json";
+    private int currentRoundTime;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
 	// Use this for initialization
 	void Start ()  
 	{
-		DontDestroyOnLoad (gameObject);
-		LoadGameData ();
-		LoadPlayerProgress ();
-
-		SceneManager.LoadScene ("MainMenu");
+        LoadGameData ();
+        LoadPlayerProgress ();
+        LoadGameSettings();
+        SceneManager.LoadScene ("MainMenu");
 	}
+    void Update()
+    {
+        //Debug.Log("currentRoundTime is: " + currentRoundTime);
+    }
+
+    public void LoadGameSettings()
+    {
+        if (PlayerPrefs.HasKey("roundTime"))
+        {
+            currentRoundTime = PlayerPrefs.GetInt("roundTime");
+            //Debug.Log("currentRoundTime is: " + currentRoundTime);
+        }
+    }
 
 	public RoundData GetCurrentRoundData()
 	{
@@ -33,6 +51,18 @@ public class DataController : MonoBehaviour
 			SavePlayerProgress ();
 		}
 	}
+
+    public int getCurrentRoundTime()
+    {
+        //Debug.Log("currentRoundTime is: " + currentRoundTime);
+        return currentRoundTime;
+    }
+
+    public void changeRoundTime(float newTime)
+    {
+        currentRoundTime = Mathf.RoundToInt(newTime);
+        SaveRoundTime();
+    }
 
 	public int GetHighestPlayerScore()
 	{
@@ -53,6 +83,11 @@ public class DataController : MonoBehaviour
 	{
 		PlayerPrefs.SetInt ("highestScore", playerProgress.highestScore);
 	}
+
+    private void SaveRoundTime()
+    {
+        PlayerPrefs.SetInt("roundTime", currentRoundTime);
+    }
 
 	private void LoadGameData()
 	{
