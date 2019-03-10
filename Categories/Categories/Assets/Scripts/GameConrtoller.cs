@@ -38,7 +38,7 @@ public class GameConrtoller : MonoBehaviour {
     public List<string> currentAnswers = new List<string>();
 
     private int roundCounter = 0;
-	public int roundLimit = 5;
+    public int roundLimit = 4;
 	private int maxScore = 75;
 	public bool next;
 
@@ -51,6 +51,8 @@ public class GameConrtoller : MonoBehaviour {
 		//Allow us to access the current round data
 		dataController = FindObjectOfType<DataController> ();
 		currentRoundData = dataController.GetCurrentRoundData ();
+
+        roundLimit = dataController.getNumberOfRounds();
 
 		//Load the questions into the questionPool
 		questionPool = currentRoundData.questions;
@@ -246,7 +248,7 @@ public class GameConrtoller : MonoBehaviour {
         //End the round
         if (roundCounter == roundLimit)
         {
-            Debug.Log("User has lost the last round");
+            Debug.Log("User has reached the round limit");
             StartCoroutine(waiter(2));
         }
     }

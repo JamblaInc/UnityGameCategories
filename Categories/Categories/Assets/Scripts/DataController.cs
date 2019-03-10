@@ -10,6 +10,7 @@ public class DataController : MonoBehaviour
 	private PlayerProgress playerProgress;
 	private string gameDataFileName = "data.json";
     private int currentRoundTime;
+    private int numberOfRounds;
 
     void Awake()
     {
@@ -54,8 +55,12 @@ public class DataController : MonoBehaviour
 
     public int getCurrentRoundTime()
     {
-        //Debug.Log("currentRoundTime is: " + currentRoundTime);
         return currentRoundTime;
+    }
+
+    public int getNumberOfRounds()
+    {
+        return numberOfRounds;
     }
 
     public void changeRoundTime(float newTime)
@@ -64,7 +69,13 @@ public class DataController : MonoBehaviour
         SaveRoundTime();
     }
 
-	public int GetHighestPlayerScore()
+    public void changeNumberOfRounds(float newTime)
+    {
+        numberOfRounds = Mathf.RoundToInt(newTime);
+        SaveNumberOfRounds();
+    }
+
+    public int GetHighestPlayerScore()
 	{
 		return playerProgress.highestScore;
 	}
@@ -89,7 +100,12 @@ public class DataController : MonoBehaviour
         PlayerPrefs.SetInt("roundTime", currentRoundTime);
     }
 
-	private void LoadGameData()
+    private void SaveNumberOfRounds ()
+    {
+        PlayerPrefs.SetInt("numberOfRounds", numberOfRounds);
+    }
+
+    private void LoadGameData()
 	{
 		#if UNITY_EDITOR
 		string filePath = Path.Combine (Application.streamingAssetsPath, gameDataFileName);
