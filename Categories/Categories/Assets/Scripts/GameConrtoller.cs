@@ -81,7 +81,7 @@ public class GameConrtoller : MonoBehaviour {
 		questionDisplay.SetActive (true);
 
 		//Start the timer
-		timeRemaining = currentRoundData.timeLimitInSeconds;
+		timeRemaining = dataController.getCurrentRoundTime();
 		UpdateTimeRemainingDisplay ();
 
 		//Set the starting score
