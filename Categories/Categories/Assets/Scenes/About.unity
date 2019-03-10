@@ -683,17 +683,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'How do I play?
+  m_Text: 'How do I play this game?
 
-    emily write this pls.
-
-
-    Other stuff
-
-    and this pls
-
-
-    thanks :) xx'
+    At the top of the screen '
 --- !u!222 &1607416163
 CanvasRenderer:
   m_ObjectHideFlags: 0

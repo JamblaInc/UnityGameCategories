@@ -1059,7 +1059,7 @@ PrefabInstance:
     - target: {fileID: 114267899777746118, guid: bac4d2762c085894ebcc4793d089f80e,
         type: 3}
       propertyPath: m_Text
-      value: Save and Exit
+      value: Save and Back
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bac4d2762c085894ebcc4793d089f80e, type: 3}
