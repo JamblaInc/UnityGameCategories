@@ -603,7 +603,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000038146973, y: -37}
+  m_AnchoredPosition: {x: -0.000029564, y: -31}
   m_SizeDelta: {x: 569.9, y: 58.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &867738631
@@ -1046,7 +1046,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000043869, y: -121}
+  m_AnchoredPosition: {x: 0.000083447, y: -93}
   m_SizeDelta: {x: 317.48, y: 65.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1396946611
@@ -1226,7 +1226,7 @@ PrefabInstance:
     - target: {fileID: 114070313375583346, guid: bac4d2762c085894ebcc4793d089f80e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReturnToMenu
+      value: StartGame
       objectReference: {fileID: 0}
     - target: {fileID: 114070313375583346, guid: bac4d2762c085894ebcc4793d089f80e,
         type: 3}
@@ -1341,7 +1341,7 @@ PrefabInstance:
     - target: {fileID: 114267899777746118, guid: bac4d2762c085894ebcc4793d089f80e,
         type: 3}
       propertyPath: m_Text
-      value: Save and Back
+      value: Let's Go!
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bac4d2762c085894ebcc4793d089f80e, type: 3}
@@ -1722,7 +1722,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000040054, y: 65}
+  m_AnchoredPosition: {x: 0.000087103, y: 49.45}
   m_SizeDelta: {x: 542.9, y: 98.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2109392729
@@ -1758,7 +1758,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Round Length
+  m_Text: Number of Rounds
 --- !u!222 &2109392730
 CanvasRenderer:
   m_ObjectHideFlags: 0
