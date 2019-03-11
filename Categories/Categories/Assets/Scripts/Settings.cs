@@ -22,7 +22,8 @@ public class Settings : MonoBehaviour
 
         //Get and display current number of rounds
         currentNumberOfRoundsSlider.value = dataController.getNumberOfRounds();
-        currentNumberOfRoundsDisplay.text = dataController.getNumberOfRounds().ToString();
+        Debug.Log("Settings rounds = " + dataController.getNumberOfRounds());
+        currentNumberOfRoundsDisplay.text = dataController.getNumberOfRounds ().ToString();
        
     }
 

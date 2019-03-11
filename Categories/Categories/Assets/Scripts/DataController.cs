@@ -35,7 +35,10 @@ public class DataController : MonoBehaviour
         if (PlayerPrefs.HasKey("roundTime"))
         {
             currentRoundTime = PlayerPrefs.GetInt("roundTime");
-            //Debug.Log("currentRoundTime is: " + currentRoundTime);
+        }
+        if (PlayerPrefs.HasKey("numberOfRounds"))
+        {
+            numberOfRounds = PlayerPrefs.GetInt("numberOfRounds");
         }
     }
 
@@ -60,6 +63,7 @@ public class DataController : MonoBehaviour
 
     public int getNumberOfRounds()
     {
+        Debug.Log("dataController number of rounds = " + numberOfRounds);
         return numberOfRounds;
     }
 
