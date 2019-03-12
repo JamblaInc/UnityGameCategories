@@ -15,12 +15,17 @@ public class GameConrtoller : MonoBehaviour {
 
 	public GameObject questionDisplay;
 	public GameObject roundEndDisplay;
+    public GameObject summaryDisplay;
 	public GameObject winDisplay;
 	public GameObject nextRoundBtn;
-	//public Text highScoreDisplay;
-	public Text winScoreDisplay;
+    public GameObject nextRoundBtnLost;
+    public GameObject toSummaryBtn;
+    public GameObject toSummaryBtnLost;
+
+    public Text winScoreDisplay;
 	public Text loseScoreDisplay;
     public Text missedAnswerDisplay;
+    public Text finalScores;
 
 	private DataController dataController;
 	private RoundData currentRoundData;
@@ -41,6 +46,7 @@ public class GameConrtoller : MonoBehaviour {
     public int roundLimit = 4;
 	private int maxScore = 75;
 	public bool next;
+    private int roundScore;
 
 	List<int> unusedQuestions = new List<int>();
 
@@ -53,6 +59,7 @@ public class GameConrtoller : MonoBehaviour {
 		currentRoundData = dataController.GetCurrentRoundData ();
 
         roundLimit = dataController.getNumberOfRounds();
+        dataController.clearRoundScores();
 
 		//Load the questions into the questionPool
 		questionPool = currentRoundData.questions;
@@ -77,6 +84,7 @@ public class GameConrtoller : MonoBehaviour {
         missedAnswerDisplay.text = "";
 
 		roundCounter++;
+        summaryDisplay.SetActive(false);
 		winDisplay.SetActive (false);
 		roundEndDisplay.SetActive (false);
 		isRoundActive = true;
@@ -175,13 +183,11 @@ public class GameConrtoller : MonoBehaviour {
 			//Remove special amount of points to score
 			playerScore -= currentRoundData.pointsAddedForSpecialAnswer;
 			scoreDisplayText.text = "Score: " + playerScore.ToString ();
-			Debug.Log ("Player lost special points");
 		} else 
 		{
 			//Remove normal amount of points
 			playerScore -= currentRoundData.pointsAddedForNormalAnswer;
 			scoreDisplayText.text = "Score: " + playerScore.ToString ();
-			Debug.Log ("Player lost normal points");
 		}
 	}
 
@@ -207,31 +213,43 @@ public class GameConrtoller : MonoBehaviour {
 		if (win) //Player got all the answers
 		{
             isRoundActive = false;
-			dataController.SubmitNewPlayerScore (playerScore);
-			winScoreDisplay.text = "Score: " + playerScore.ToString () + " + " + Mathf.Round(timeRemaining).ToString () + " = " + (Mathf.Round(timeRemaining)+playerScore).ToString();
-			winDisplay.SetActive (true);
-			RemoveAnswerButtons ();
+            roundScore = (int)(Mathf.Round(timeRemaining) + playerScore);
+            dataController.addRoundScore(roundScore);
+			winScoreDisplay.text = "Score: " + playerScore.ToString () + " + " + Mathf.Round(timeRemaining).ToString () + " = " + roundScore.ToString();
 
-            //Reset the current answers list
-            currentAnswers.Clear();
+            RemoveAnswerButtons();
 
             //End the round
             if (roundCounter == roundLimit)
             {
                 Debug.Log("User has reached the round limit");
                 nextRoundBtn.SetActive(false);
-                StartCoroutine(waiter(2));
-                
+                toSummaryBtn.SetActive(true);
+
             }
 
+            winDisplay.SetActive(true);
+            
+            //Reset the current answers list
+            currentAnswers.Clear();
         } else if (!win) //Player didn't get all the answers
 		{
             isRoundActive = false;
-			dataController.SubmitNewPlayerScore (playerScore);
+			dataController.addRoundScore (playerScore);
 			loseScoreDisplay.text = "Score: " + playerScore.ToString ();
-			roundEndDisplay.SetActive (true);
-			RemoveAnswerButtons ();
 
+            RemoveAnswerButtons();
+
+            //End the round
+            if (roundCounter == roundLimit)
+            {
+                Debug.Log("User has reached the round limit");
+                nextRoundBtnLost.SetActive(false);
+                toSummaryBtnLost.SetActive(true);
+            }
+
+            roundEndDisplay.SetActive(true);
+            
             //Sort the missed answers alphabetically before displaying them
             currentAnswers.Sort();
 
@@ -244,18 +262,33 @@ public class GameConrtoller : MonoBehaviour {
 
             //Reset the current answers list
             currentAnswers.Clear();
-
-            //End the round
-            if (roundCounter == roundLimit)
-            {
-                Debug.Log("User has reached the round limit");
-                StartCoroutine(waiter(2));
-            }
         } else 
 		{
 			Debug.Log ("win is undefined, restart");
 			Application.Quit ();
 		}
+    }
+
+    public void toSummary()
+    {
+        //only display the summary panel
+        winDisplay.SetActive(false);
+        roundEndDisplay.SetActive(false);
+        questionDisplay.SetActive(false);
+        scoreDisplayText.enabled = false;
+        timeRemainingDisplayTest.enabled = false;
+        summaryDisplay.SetActive(true);
+
+        //Reset the finalScores text
+        finalScores.text = "";
+
+        //Display scores for each round
+        for (int i = 0; i < dataController.getNumberOfRounds(); i++)
+        {
+            finalScores.text += "Round" + (i+1) + ": " + dataController.returnRoundScores(i) + "\n";
+        }
+
+        finalScores.text += "\n\nTotal Score: " + dataController.getTotalScore();
     }
 
 	public void ReturnToMenu()

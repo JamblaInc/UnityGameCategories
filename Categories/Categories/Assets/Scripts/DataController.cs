@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using System.IO;
+using System.Collections.Generic;
 
 public class DataController : MonoBehaviour 
 {
@@ -11,6 +12,7 @@ public class DataController : MonoBehaviour
 	private string gameDataFileName = "data.json";
     private int currentRoundTime;
     private int numberOfRounds;
+    private List<int> roundScores = new List<int>();
 
     void Awake()
     {
@@ -27,7 +29,7 @@ public class DataController : MonoBehaviour
 	}
     void Update()
     {
-        //Debug.Log("currentRoundTime is: " + currentRoundTime);
+        
     }
 
     public void LoadGameSettings()
@@ -55,6 +57,31 @@ public class DataController : MonoBehaviour
 			SavePlayerProgress ();
 		}
 	}
+
+    public void addRoundScore(int roundScore)
+    {
+        roundScores.Add(roundScore);
+    }
+
+    public void clearRoundScores()
+    {
+        roundScores.Clear();
+    }
+
+    public int returnRoundScores(int roundNumber)
+    {
+        return roundScores[roundNumber];
+    }
+
+    public int getTotalScore()
+    {
+        int sumOfScores = 0;
+        for(int i = 0; i < getNumberOfRounds(); i++)
+        {
+            sumOfScores += roundScores[i];
+        }
+        return sumOfScores;
+    }
 
     public int getCurrentRoundTime()
     {
