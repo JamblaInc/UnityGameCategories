@@ -647,7 +647,8 @@ MonoBehaviour:
   questionDisplayText: {fileID: 1723754151}
   scoreDisplayText: {fileID: 1127613319}
   roundNumberText: {fileID: 360370143}
-  timeRemainingDisplayTest: {fileID: 227660086}
+  timeRemainingDisplayText: {fileID: 227660086}
+  timeRemainingHeader: {fileID: 808564558}
   answerButtonObjectPool: {fileID: 582186419}
   answerButtonParent: {fileID: 2120803885}
   questionDisplay: {fileID: 1631282459}
@@ -658,6 +659,7 @@ MonoBehaviour:
   nextRoundBtnLost: {fileID: 686311907}
   toSummaryBtn: {fileID: 517822845}
   toSummaryBtnLost: {fileID: 1266982579}
+  scrollBar: {fileID: 1978346266}
   winScoreDisplay: {fileID: 388723008}
   loseScoreDisplay: {fileID: 1288150274}
   missedAnswerDisplay: {fileID: 472990213}

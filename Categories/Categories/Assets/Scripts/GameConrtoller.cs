@@ -10,7 +10,8 @@ public class GameConrtoller : MonoBehaviour {
 	public Text questionDisplayText;
 	public Text scoreDisplayText;
     public Text roundNumberText;
-	public Text timeRemainingDisplayTest;
+	public Text timeRemainingDisplayText;
+    public Text timeRemainingHeader;
 	public SimpleObjectPool answerButtonObjectPool;
 	public Transform answerButtonParent;
 
@@ -22,6 +23,7 @@ public class GameConrtoller : MonoBehaviour {
     public GameObject nextRoundBtnLost;
     public GameObject toSummaryBtn;
     public GameObject toSummaryBtnLost;
+    public GameObject scrollBar;
 
     public Text winScoreDisplay;
 	public Text loseScoreDisplay;
@@ -284,8 +286,14 @@ public class GameConrtoller : MonoBehaviour {
         questionDisplay.SetActive(false);
         scoreDisplayText.enabled = false;
         roundNumberText.enabled = false;
-        timeRemainingDisplayTest.enabled = false;
+        timeRemainingDisplayText.enabled = false;
+        timeRemainingHeader.enabled = false;
         summaryDisplay.SetActive(true);
+
+        if(dataController.getNumberOfRounds() < 10)
+        {
+            scrollBar.SetActive(false);
+        }
 
         //Reset the finalScores text
         finalScores.text = "";
@@ -306,13 +314,13 @@ public class GameConrtoller : MonoBehaviour {
 
 	private void UpdateTimeRemainingDisplay()
 	{
-		timeRemainingDisplayTest.text = Mathf.Round (timeRemaining).ToString();
+		timeRemainingDisplayText.text = Mathf.Round (timeRemaining).ToString();
         if(Mathf.Round(timeRemaining) <= 10)
         {
-            timeRemainingDisplayTest.color = Color.red;
+            timeRemainingDisplayText.color = Color.red;
         } else
         {
-            timeRemainingDisplayTest.color = Color.white;
+            timeRemainingDisplayText.color = Color.white;
         }
 	}
 
