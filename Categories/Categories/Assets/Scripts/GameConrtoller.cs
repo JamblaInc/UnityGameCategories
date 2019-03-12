@@ -9,6 +9,7 @@ public class GameConrtoller : MonoBehaviour {
 
 	public Text questionDisplayText;
 	public Text scoreDisplayText;
+    public Text roundNumberText;
 	public Text timeRemainingDisplayTest;
 	public SimpleObjectPool answerButtonObjectPool;
 	public Transform answerButtonParent;
@@ -97,6 +98,9 @@ public class GameConrtoller : MonoBehaviour {
 		//Set the starting score
 		playerScore = 0;
 		scoreDisplayText.text = "Score: " + playerScore.ToString ();
+
+        //Set the round number at the top of screen to current round
+        roundNumberText.text = "Round " + roundCounter;
 
 		RemoveAnswerButtons ();
 
@@ -279,6 +283,7 @@ public class GameConrtoller : MonoBehaviour {
         roundEndDisplay.SetActive(false);
         questionDisplay.SetActive(false);
         scoreDisplayText.enabled = false;
+        roundNumberText.enabled = false;
         timeRemainingDisplayTest.enabled = false;
         summaryDisplay.SetActive(true);
 
