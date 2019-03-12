@@ -50,9 +50,9 @@ public class GameConrtoller : MonoBehaviour {
     private int roundScore;
 
 	List<int> unusedQuestions = new List<int>();
-
-	// Use this for initialization
-	void Start () 
+    
+    // Use this for initialization
+    void Start () 
 	{
 		
 		//Allow us to access the current round data

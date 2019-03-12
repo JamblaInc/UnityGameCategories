@@ -7,11 +7,13 @@ public class AnswerButton : MonoBehaviour {
 
 	public Text answerText;
 	private GameConrtoller gameController;
-
 	public AnswerData answerData;
 
 	public bool isSelected;
 	public int aCounter;
+
+    public Sprite specialButtonSprite;
+    public Sprite normalButtonSprite;
 
     // Use this for initialization
     void Start () 
@@ -19,12 +21,13 @@ public class AnswerButton : MonoBehaviour {
 		//Access the gamecontroller object
 		gameController = FindObjectOfType<GameConrtoller> ();
 		aCounter = 0;
-	}
+    }
 
 	public void SetUp(AnswerData data)
 	{
-		//Change the colour of the button
-		gameObject.GetComponent<Button> ().image.color = Color.white;
+        //Reset the colour & image of the button
+        gameObject.GetComponent<Button>().image.color = Color.white;
+        gameObject.GetComponent<Button>().image.sprite = normalButtonSprite;
 
 		//Ensure button is set to false by default
 		isSelected = false;
@@ -72,7 +75,7 @@ public class AnswerButton : MonoBehaviour {
             //Change the colour of the button
             if (answerData.isSpecial) 
 			{
-				gameObject.GetComponent<Button> ().image.color = Color.yellow;
+                gameObject.GetComponent<Button>().image.sprite = specialButtonSprite;
 			} else 
 			{
 				gameObject.GetComponent<Button> ().image.color = Color.green;
@@ -98,9 +101,10 @@ public class AnswerButton : MonoBehaviour {
                 Debug.Log(gameController.currentAnswers[i]);
             }
 
-            //Change the colour of the button
-            gameObject.GetComponent<Button> ().image.color = Color.white;
-		}
+            //Reset the colour & image of the button
+            gameObject.GetComponent<Button>().image.color = Color.white;
+            gameObject.GetComponent<Button>().image.sprite = normalButtonSprite;
+        }
 
 		//Check if the answer is correct and handle the click in the GameController
 		gameController.AnswerButtonClicked (answerData.isSpecial);
