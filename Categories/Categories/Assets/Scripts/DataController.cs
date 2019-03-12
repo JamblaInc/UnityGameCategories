@@ -63,7 +63,6 @@ public class DataController : MonoBehaviour
 
     public int getNumberOfRounds()
     {
-        Debug.Log("dataController number of rounds = " + numberOfRounds);
         return numberOfRounds;
     }
 

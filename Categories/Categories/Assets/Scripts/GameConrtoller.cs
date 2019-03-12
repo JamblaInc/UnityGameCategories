@@ -204,26 +204,31 @@ public class GameConrtoller : MonoBehaviour {
 	public void EndRound(bool win)
 	{
 		Debug.Log (roundCounter);
-		if (win) 
+		if (win) //Player got all the answers
 		{
-			isRoundActive = false;
+            isRoundActive = false;
 			dataController.SubmitNewPlayerScore (playerScore);
-			//highScoreDisplay.text = "You scored: " + dataController.GetHighestPlayerScore ().ToString ();
 			winScoreDisplay.text = "Score: " + playerScore.ToString () + " + " + Mathf.Round(timeRemaining).ToString () + " = " + (Mathf.Round(timeRemaining)+playerScore).ToString();
-			//questionDisplay.SetActive (false);
 			winDisplay.SetActive (true);
 			RemoveAnswerButtons ();
 
             //Reset the current answers list
             currentAnswers.Clear();
 
-        } else if (!win) 
+            //End the round
+            if (roundCounter == roundLimit)
+            {
+                Debug.Log("User has reached the round limit");
+                nextRoundBtn.SetActive(false);
+                StartCoroutine(waiter(2));
+                
+            }
+
+        } else if (!win) //Player didn't get all the answers
 		{
-			isRoundActive = false;
+            isRoundActive = false;
 			dataController.SubmitNewPlayerScore (playerScore);
-			//highScoreDisplay.text = "You scored: " + dataController.GetHighestPlayerScore ().ToString ();
 			loseScoreDisplay.text = "Score: " + playerScore.ToString ();
-			//questionDisplay.SetActive (false);
 			roundEndDisplay.SetActive (true);
 			RemoveAnswerButtons ();
 
@@ -239,18 +244,18 @@ public class GameConrtoller : MonoBehaviour {
 
             //Reset the current answers list
             currentAnswers.Clear();
-		} else 
+
+            //End the round
+            if (roundCounter == roundLimit)
+            {
+                Debug.Log("User has reached the round limit");
+                StartCoroutine(waiter(2));
+            }
+        } else 
 		{
-			Debug.Log ("Something has gone horribly wrong");
+			Debug.Log ("win is undefined, restart");
 			Application.Quit ();
 		}
-
-        //End the round
-        if (roundCounter == roundLimit)
-        {
-            Debug.Log("User has reached the round limit");
-            StartCoroutine(waiter(2));
-        }
     }
 
 	public void ReturnToMenu()
