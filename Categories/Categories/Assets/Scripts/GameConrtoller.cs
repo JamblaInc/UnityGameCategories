@@ -306,7 +306,14 @@ public class GameConrtoller : MonoBehaviour {
 
 	private void UpdateTimeRemainingDisplay()
 	{
-		timeRemainingDisplayTest.text = "Time: " + Mathf.Round (timeRemaining).ToString();
+		timeRemainingDisplayTest.text = Mathf.Round (timeRemaining).ToString();
+        if(Mathf.Round(timeRemaining) <= 10)
+        {
+            timeRemainingDisplayTest.color = Color.red;
+        } else
+        {
+            timeRemainingDisplayTest.color = Color.white;
+        }
 	}
 
 	// Update is called once per frame
