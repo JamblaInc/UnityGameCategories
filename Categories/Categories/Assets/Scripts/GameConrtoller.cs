@@ -288,7 +288,7 @@ public class GameConrtoller : MonoBehaviour {
         //Display scores for each round
         for (int i = 0; i < dataController.getNumberOfRounds(); i++)
         {
-            finalScores.text += "Round" + (i+1) + ": " + dataController.returnRoundScores(i) + "\n";
+            finalScores.text += "Round " + (i+1) + ": " + dataController.returnRoundScores(i) + "\n";
         }
 
         finalScores.text += "\n\nTotal Score: " + dataController.getTotalScore();
