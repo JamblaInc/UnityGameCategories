@@ -656,7 +656,7 @@ MonoBehaviour:
   nextRoundBtn: {fileID: 241925719}
   nextRoundBtnLost: {fileID: 686311907}
   toSummaryBtn: {fileID: 517822845}
-  toSummaryBtnLost: {fileID: 0}
+  toSummaryBtnLost: {fileID: 1266982579}
   winScoreDisplay: {fileID: 388723008}
   loseScoreDisplay: {fileID: 1288150274}
   missedAnswerDisplay: {fileID: 472990213}

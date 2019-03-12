@@ -240,15 +240,7 @@ public class GameConrtoller : MonoBehaviour {
 
             RemoveAnswerButtons();
 
-            //End the round
-            if (roundCounter == roundLimit)
-            {
-                Debug.Log("User has reached the round limit");
-                nextRoundBtnLost.SetActive(false);
-                toSummaryBtnLost.SetActive(true);
-            }
-
-            roundEndDisplay.SetActive(true);
+            
             
             //Sort the missed answers alphabetically before displaying them
             currentAnswers.Sort();
@@ -262,6 +254,17 @@ public class GameConrtoller : MonoBehaviour {
 
             //Reset the current answers list
             currentAnswers.Clear();
+
+            //End the round
+            if (roundCounter == roundLimit)
+            {
+                Debug.Log("User has reached the round limit");
+                nextRoundBtnLost.SetActive(false);
+                toSummaryBtnLost.SetActive(true);
+            }
+
+            roundEndDisplay.SetActive(true);
+
         } else 
 		{
 			Debug.Log ("win is undefined, restart");
