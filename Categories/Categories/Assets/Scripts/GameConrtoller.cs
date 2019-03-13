@@ -35,6 +35,7 @@ public class GameConrtoller : MonoBehaviour {
 	private DataController dataController;
 	private RoundData currentRoundData;
     private AnswerButton currentAnswerButton;
+    private AdManager adManager;
 
 	private Question[] questionPool;
 
@@ -62,6 +63,7 @@ public class GameConrtoller : MonoBehaviour {
 		//Allow us to access the current round data
 		dataController = FindObjectOfType<DataController> ();
 		currentRoundData = dataController.GetCurrentRoundData ();
+        adManager = FindObjectOfType<AdManager>();
 
         roundLimit = dataController.getNumberOfRounds();
         dataController.clearRoundScores();
@@ -286,6 +288,9 @@ public class GameConrtoller : MonoBehaviour {
 
     public void toSummary()
     {
+        //display an ad
+        adManager.playAd();
+
         //only display the summary panel
         winDisplay.SetActive(false);
         roundEndDisplay.SetActive(false);
