@@ -222,6 +222,7 @@ public class GameConrtoller : MonoBehaviour {
             roundScore = (int)(Mathf.Round(timeRemaining) + playerScore);
             dataController.addRoundScore(roundScore);
 			winScoreDisplay.text = "Score: " + playerScore.ToString () + " + " + Mathf.Round(timeRemaining).ToString () + " = " + roundScore.ToString();
+            toSummaryBtn.SetActive(false);
 
             RemoveAnswerButtons();
 
@@ -243,6 +244,7 @@ public class GameConrtoller : MonoBehaviour {
             isRoundActive = false;
 			dataController.addRoundScore (playerScore);
 			loseScoreDisplay.text = "Score: " + playerScore.ToString ();
+            toSummaryBtnLost.SetActive(false);
 
             RemoveAnswerButtons();
 
