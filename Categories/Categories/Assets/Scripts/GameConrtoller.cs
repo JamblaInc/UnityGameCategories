@@ -21,6 +21,8 @@ public class GameConrtoller : MonoBehaviour {
 	public GameObject winDisplay;
 	public GameObject nextRoundBtn;
     public GameObject nextRoundBtnLost;
+    public GameObject menuButton;
+    public GameObject menuButtonLost;
     public GameObject toSummaryBtn;
     public GameObject toSummaryBtnLost;
     public GameObject scrollBar;
@@ -231,8 +233,8 @@ public class GameConrtoller : MonoBehaviour {
             {
                 Debug.Log("User has reached the round limit");
                 nextRoundBtn.SetActive(false);
+                menuButton.SetActive(false);
                 toSummaryBtn.SetActive(true);
-
             }
 
             winDisplay.SetActive(true);
@@ -267,7 +269,9 @@ public class GameConrtoller : MonoBehaviour {
             if (roundCounter == roundLimit)
             {
                 Debug.Log("User has reached the round limit");
+                
                 nextRoundBtnLost.SetActive(false);
+                menuButtonLost.SetActive(false);
                 toSummaryBtnLost.SetActive(true);
             }
 
