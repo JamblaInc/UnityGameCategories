@@ -9,9 +9,11 @@ public class PanelHandler : MonoBehaviour
     private RoundData currentRoundData;
     List<int> unusedQuestions = new List<int>();
     private Question[] questionPool;
-    public Text[] panelText;
+    private Text[] panelText;
     public GameObject panel;
     private int questionIndex;
+    private int frontSpinCount;
+    private int backSpinCount;
 
 
     // Start is called before the first frame update
@@ -20,6 +22,10 @@ public class PanelHandler : MonoBehaviour
         //Locate the frontPanel
         panelText = GetComponentsInChildren<Text>();
 
+        //Set the spin count of the panel to zero
+        frontSpinCount = 0;
+        backSpinCount = 0;
+        
         //Allow us to access the current round data
         dataController = FindObjectOfType<DataController>();
         currentRoundData = dataController.GetCurrentRoundData();
@@ -37,8 +43,8 @@ public class PanelHandler : MonoBehaviour
         questionToPanel(1);
 
         //TODO do this by angle of rotation not time
-        StartCoroutine(waiterFront(1));
-        StartCoroutine(waiterBack(1));
+        StartCoroutine(waiterFront(2));
+        StartCoroutine(waiterBack(4));
     }
 
     void questionToPanel(int panelIndex)
@@ -77,13 +83,13 @@ public class PanelHandler : MonoBehaviour
     {
         yield return new WaitForSeconds(i);
         questionToPanel(0);
-        StartCoroutine(waiterFront(1));
+        StartCoroutine(waiterFront(4));
     }
 
     IEnumerator waiterBack(int i)
     {
         yield return new WaitForSeconds(i);
         questionToPanel(1);
-        StartCoroutine(waiterBack(1));
+        StartCoroutine(waiterBack(4));
     }
 }
