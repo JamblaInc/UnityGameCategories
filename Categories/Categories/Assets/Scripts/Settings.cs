@@ -7,15 +7,25 @@ public class Settings : MonoBehaviour
 {
     public Text currentTimeDisplay;
     public Text currentNumberOfRoundsDisplay;
+    public Text currentRoundsHead;
+    public Text currentTimeHead;
+    public Text screenHeader;
     private DataController dataController;
     public Slider roundTimeSlider;
     public Slider currentNumberOfRoundsSlider;
+    public Button muteButton;
+    public Button helpButton;
+    public Button startButton;
+    public GameObject helpPanel;
 
     // Start is called before the first frame update
     void Start()
     {
         dataController = FindObjectOfType<DataController>();
-                
+
+        //Hide help panel
+        helpPanel.SetActive(false);
+        
         //Get and display current round time
         roundTimeSlider.value = dataController.getCurrentRoundTime();
         currentTimeDisplay.text = dataController.getCurrentRoundTime() + "s";
@@ -36,5 +46,20 @@ public class Settings : MonoBehaviour
         dataController.changeNumberOfRounds(currentNumberOfRoundsSlider.value);
 
     }
+
+    public void displayHelp()
+    {
+        muteButton.enabled = false;
+        startButton.enabled = false;
+        helpButton.enabled = false;
+        helpPanel.gameObject.SetActive(true);
+    }
     
+    public void closeHelp()
+    {
+        muteButton.enabled = true;
+        startButton.enabled = true;
+        helpButton.enabled = true;
+        helpPanel.gameObject.SetActive(false);
+    }
 }
