@@ -1,7 +1,7 @@
 {
   "allRoundData": [
     {
-      "name": "Countries",
+      "name": "Categories",
       "timeLimitInSeconds": 5,
       "pointsAddedForSpecialAnswer": 15,
       "pointsAddedForNormalAnswer": 10,
