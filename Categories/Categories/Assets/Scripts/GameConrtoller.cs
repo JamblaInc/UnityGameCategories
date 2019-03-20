@@ -26,6 +26,8 @@ public class GameConrtoller : MonoBehaviour {
     public GameObject toSummaryBtn;
     public GameObject toSummaryBtnLost;
     public GameObject scrollBar;
+    public GameObject continueButton;
+    public GameObject continueButtonLost;
 
     public Text winScoreDisplay;
 	public Text loseScoreDisplay;
@@ -36,9 +38,10 @@ public class GameConrtoller : MonoBehaviour {
 	private RoundData currentRoundData;
     private AnswerButton currentAnswerButton;
     private AdManager adManager;
+    private ScreenshotHandler screenshotHandler;
 
 	private Question[] questionPool;
-
+    
 	private bool isRoundActive;
 	private float timeRemaining;
 	private int questionIndex;
@@ -64,6 +67,7 @@ public class GameConrtoller : MonoBehaviour {
 		dataController = FindObjectOfType<DataController> ();
 		currentRoundData = dataController.GetCurrentRoundData ();
         adManager = FindObjectOfType<AdManager>();
+        screenshotHandler = FindObjectOfType<ScreenshotHandler>();
 
         roundLimit = dataController.getNumberOfRounds();
         dataController.clearRoundScores();
@@ -90,6 +94,8 @@ public class GameConrtoller : MonoBehaviour {
         //Reset the missed answers text
         missedAnswerDisplay.text = "";
 
+        continueButton.SetActive(false);
+        continueButtonLost.SetActive(false);
 		roundCounter++;
         summaryDisplay.SetActive(false);
 		winDisplay.SetActive (false);
@@ -211,18 +217,10 @@ public class GameConrtoller : MonoBehaviour {
 		}
 	}
 
-	IEnumerator waiter(int i)
-	{
-		yield return new WaitForSeconds (i);
-		ReturnToMenu ();
-	}
-
 	public void EndRound(bool win)
 	{
-		Debug.Log (roundCounter);
-		if (win) //Player got all the answers
+        if (win) //Player got all the answers
 		{
-            isRoundActive = false;
             roundScore = (int)(Mathf.Round(timeRemaining) + playerScore);
             dataController.addRoundScore(roundScore);
 			winScoreDisplay.text = "Score: " + playerScore.ToString () + " + " + Mathf.Round(timeRemaining).ToString () + " = " + roundScore.ToString();
@@ -245,7 +243,6 @@ public class GameConrtoller : MonoBehaviour {
             currentAnswers.Clear();
         } else if (!win) //Player didn't get all the answers
 		{
-            isRoundActive = false;
 			dataController.addRoundScore (playerScore);
 			loseScoreDisplay.text = "Score: " + playerScore.ToString ();
             toSummaryBtnLost.SetActive(false);
@@ -301,7 +298,7 @@ public class GameConrtoller : MonoBehaviour {
         timeRemainingHeader.enabled = false;
         summaryDisplay.SetActive(true);
 
-        if(dataController.getNumberOfRounds() < 10)
+        if(dataController.getNumberOfRounds() < 4)
         {
             scrollBar.SetActive(false);
         }
@@ -335,23 +332,41 @@ public class GameConrtoller : MonoBehaviour {
         }
 	}
 
+    private void preEndRound(bool win)
+    {
+        isRoundActive = false;
+        screenshotHandler.TakeScreenshot_Static(Screen.width, Screen.height);
+        StartCoroutine(waitUntil(win));
+    }
+
 	// Update is called once per frame
 	void Update () 
 	{
 		if (isRoundActive) 
 		{	
-			if (playerScore == maxScore) {
-				EndRound (true);
-				//TODO Add in success round
-			}
+			if (playerScore == maxScore)
+            {
+                preEndRound(true);
+            }
 			
 			timeRemaining -= Time.deltaTime;
 			UpdateTimeRemainingDisplay ();
 
 			if (timeRemaining <= 0f) 
 			{
-				EndRound (false);
-			}
+                preEndRound(false);
+            }
 		}
 	}
+
+    IEnumerator waitUntil(bool win)
+    {
+        Debug.Log("Waiting for screenshot to be taken...");
+        Debug.Log("roundCounter = " + roundCounter);
+        Debug.Log("screenshotCounter = " + screenshotHandler.returnScreenshotCount());
+        yield return new WaitUntil(() => screenshotHandler.returnScreenshotCount() == roundCounter);
+        Debug.Log("screenshotCounter is now = " + screenshotHandler.returnScreenshotCount());
+        EndRound(win);
+        Debug.Log("Ending Round");
+    }
 }
