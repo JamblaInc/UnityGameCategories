@@ -39,6 +39,7 @@ public class GameConrtoller : MonoBehaviour {
     private AnswerButton currentAnswerButton;
     private AdManager adManager;
     private ScreenshotHandler screenshotHandler;
+    private ScreenshotManager screenshotManager;
 
 	private Question[] questionPool;
     
@@ -68,6 +69,7 @@ public class GameConrtoller : MonoBehaviour {
 		currentRoundData = dataController.GetCurrentRoundData ();
         adManager = FindObjectOfType<AdManager>();
         screenshotHandler = FindObjectOfType<ScreenshotHandler>();
+        screenshotManager = FindObjectOfType<ScreenshotManager>();
 
         roundLimit = dataController.getNumberOfRounds();
         dataController.clearRoundScores();
@@ -335,7 +337,8 @@ public class GameConrtoller : MonoBehaviour {
     private void preEndRound(bool win)
     {
         isRoundActive = false;
-        screenshotHandler.TakeScreenshot_Static(Screen.width, Screen.height);
+        screenshotManager.TakeScreenshot();
+        //screenshotHandler.TakeScreenshot_Static(Screen.width, Screen.height);
         StartCoroutine(waitUntil(win));
     }
 
@@ -363,9 +366,8 @@ public class GameConrtoller : MonoBehaviour {
     {
         Debug.Log("Waiting for screenshot to be taken...");
         Debug.Log("roundCounter = " + roundCounter);
-        Debug.Log("screenshotCounter = " + screenshotHandler.returnScreenshotCount());
-        yield return new WaitUntil(() => screenshotHandler.returnScreenshotCount() == roundCounter);
-        Debug.Log("screenshotCounter is now = " + screenshotHandler.returnScreenshotCount());
+        Debug.Log("screenshotCounter = " + screenshotManager.returnScreenshotCounter());
+        yield return new WaitUntil(() => screenshotManager.returnScreenshotCounter() == roundCounter);
         EndRound(win);
         Debug.Log("Ending Round");
     }
