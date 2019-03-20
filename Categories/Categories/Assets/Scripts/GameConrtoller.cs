@@ -289,7 +289,7 @@ public class GameConrtoller : MonoBehaviour {
     public void toSummary()
     {
         //display an ad
-        adManager.playAd();
+        //adManager.playAd();
 
         //only display the summary panel
         winDisplay.SetActive(false);
