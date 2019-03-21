@@ -53,7 +53,7 @@ public class GameConrtoller : MonoBehaviour {
     public List<string> currentAnswers = new List<string>();
 
     private int roundCounter = 0;
-    public int roundLimit = 4;
+    public int roundLimit;
 	private int maxScore = 75;
 	public bool next;
     private int roundScore;
@@ -299,12 +299,7 @@ public class GameConrtoller : MonoBehaviour {
         timeRemainingDisplayText.enabled = false;
         timeRemainingHeader.enabled = false;
         summaryDisplay.SetActive(true);
-
-        if(dataController.getNumberOfRounds() < 4)
-        {
-            scrollBar.SetActive(false);
-        }
-
+        
         //Reset the finalScores text
         finalScores.text = "";
 
@@ -312,6 +307,7 @@ public class GameConrtoller : MonoBehaviour {
         for (int i = 0; i < dataController.getNumberOfRounds(); i++)
         {
             finalScores.text += "Round " + (i+1) + ": " + dataController.returnRoundScores(i) + "\n";
+            Debug.Log("Round " + i + " score is: " + dataController.returnRoundScores(i));
         }
 
         finalScores.text += "\n\nTotal Score: " + dataController.getTotalScore();
