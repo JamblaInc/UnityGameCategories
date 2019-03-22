@@ -13,8 +13,8 @@ public class ScreenshotManager : MonoBehaviour
 
     IEnumerator CaptureIt()
     {
-        string fileName = "/Screenshots/Screenshot" + screenshotCounter + ".png";
-        string pathToSave = Application.streamingAssetsPath + fileName;
+        string fileName = "Screenshot" + screenshotCounter + ".png";
+        string pathToSave = "Assets/Resources/Screenshots/" + fileName;
         ScreenCapture.CaptureScreenshot(pathToSave);
         Debug.Log("Screenshot Taken");
         screenshotCounter++;

@@ -7,6 +7,8 @@ TagManager:
   - MaterialButtonLayer
   - MaterialText
   - back
+  - MaterialRadioButton
+  - scoreDisplayContainer
   layers:
   - Default
   - TransparentFX

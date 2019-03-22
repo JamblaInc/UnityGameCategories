@@ -28,6 +28,8 @@ public class GameConrtoller : MonoBehaviour {
     public GameObject scrollBar;
     public GameObject continueButton;
     public GameObject continueButtonLost;
+    public GameObject scoreDisplayContainer;
+    public GameObject scoreDisplayPrefab;
 
     public Text winScoreDisplay;
 	public Text loseScoreDisplay;
@@ -48,6 +50,8 @@ public class GameConrtoller : MonoBehaviour {
 	private int questionIndex;
 	private int playerScore;
 	private List<GameObject> answerButtonGameObjects = new List<GameObject>();
+    private int roundDisplayEditorCounter;
+    public bool isFinished;
 
     //List to store the current answers
     public List<string> currentAnswers = new List<string>();
@@ -301,16 +305,42 @@ public class GameConrtoller : MonoBehaviour {
         summaryDisplay.SetActive(true);
         
         //Reset the finalScores text
-        finalScores.text = "";
+        finalScores.text = "";        
 
         //Display scores for each round
         for (int i = 0; i < dataController.getNumberOfRounds(); i++)
         {
-            finalScores.text += "Round " + (i+1) + ": " + dataController.returnRoundScores(i) + "\n";
-            Debug.Log("Round " + i + " score is: " + dataController.returnRoundScores(i));
+            roundDisplayEditorCounter = (i); //TODO FIX THIS
+            StartCoroutine(displayImages(i));
+            //finalScores.text += "Round " + (i+1) + ": " + dataController.returnRoundScores(i) + "\n";
+            //Debug.Log("Round " + i + " score is: " + dataController.returnRoundScores(i));
+
         }
 
-        finalScores.text += "\n\nTotal Score: " + dataController.getTotalScore();
+        //finalScores.text += "\n\nTotal Score: " + dataController.getTotalScore();
+    }
+
+    IEnumerator displayImages(int roundNum)
+    {
+        GameObject instancedScoreDisplayPrefab = Instantiate(scoreDisplayPrefab);
+        instancedScoreDisplayPrefab.transform.SetParent(GameObject.FindGameObjectWithTag("scoreDisplayContainer").transform, false);
+        yield return new WaitUntil(() => returnIsFinished());
+        isFinished = false;
+    }
+
+    public void setIsFinished(bool isIt)
+    {
+        isFinished = isIt;
+    }
+
+    public bool returnIsFinished()
+    {
+        return isFinished;
+    }
+
+    public int returnDisplayCounter()
+    {
+        return roundDisplayEditorCounter;
     }
 
 	public void ReturnToMenu()
