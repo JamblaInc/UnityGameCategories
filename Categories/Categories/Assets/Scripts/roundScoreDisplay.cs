@@ -9,38 +9,30 @@ public class roundScoreDisplay : MonoBehaviour
     private GameConrtoller gameConrtoller;
     public Image imageDisplay;
     public Text scoreText;
-    Sprite sprite;
-    public bool finished;
+    public Sprite loadedSprite;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Debug.Log("Starting");
         gameConrtoller = FindObjectOfType<GameConrtoller>();
         dataController = FindObjectOfType<DataController>();
 
         imageDisplay = GetComponent<Image>();
-        scoreText = GetComponentInChildren<Text>();
-        setScoreText(gameConrtoller.returnDisplayCounter());
-        loadImage(gameConrtoller.returnDisplayCounter());
+        //scoreText = GetComponentInChildren<Text>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    
     public void setScoreText(int roundNum)
     {
         scoreText.text = dataController.returnRoundScores(roundNum).ToString();
+        Debug.Log("Setting score to" + dataController.returnRoundScores(roundNum).ToString());
     }
 
     public void loadImage(int roundNum)
     {
-        sprite = Resources.Load<Sprite>("Screenshots/Screenshot" + roundNum);
-        imageDisplay.sprite = sprite;
-        Debug.Log("roundNum = " + roundNum);
-        gameConrtoller.setIsFinished(true);
+        Debug.Log("Setting image " + roundNum);
+        loadedSprite = Resources.Load<Sprite>("Screenshots/Screenshot" + roundNum);
+        imageDisplay.sprite = loadedSprite;
+        //Debug.Log("roundNum = " + roundNum);
     }
 }

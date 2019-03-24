@@ -146,7 +146,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 8fed312b6ec46ea498fbcc69c8268893, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 27dc9600cd86fc04585cc4b5e03300b6, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -168,4 +168,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   imageDisplay: {fileID: 0}
-  scoreText: {fileID: 0}
+  scoreText: {fileID: 5477176299091806823}
+  loadedSprite: {fileID: 0}
