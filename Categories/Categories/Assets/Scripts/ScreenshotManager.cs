@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class ScreenshotManager : MonoBehaviour
@@ -14,9 +15,10 @@ public class ScreenshotManager : MonoBehaviour
     IEnumerator CaptureIt()
     {
         string fileName = "Screenshot" + screenshotCounter + ".png";
-        string pathToSave = "Assets/Resources/Screenshots/" + fileName;
+        string pathToSave = Application.persistentDataPath + fileName;
+        //string pathToSave = "Assets/Resources/Screenshots/" + fileName;
         ScreenCapture.CaptureScreenshot(pathToSave);
-        Debug.Log("Screenshot Taken");
+        //Debug.Log("Screenshot Taken");
         screenshotCounter++;
         yield return new WaitForEndOfFrame();
     }

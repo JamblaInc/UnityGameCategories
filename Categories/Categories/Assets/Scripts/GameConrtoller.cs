@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEditor;
 
 public class GameConrtoller : MonoBehaviour {
 
@@ -25,7 +26,6 @@ public class GameConrtoller : MonoBehaviour {
     public GameObject menuButtonLost;
     public GameObject toSummaryBtn;
     public GameObject toSummaryBtnLost;
-    public GameObject scrollBar;
     public GameObject continueButton;
     public GameObject continueButtonLost;
     public GameObject scoreDisplayContainer;
@@ -40,7 +40,6 @@ public class GameConrtoller : MonoBehaviour {
 	private RoundData currentRoundData;
     private AnswerButton currentAnswerButton;
     private AdManager adManager;
-    private ScreenshotHandler screenshotHandler;
     private ScreenshotManager screenshotManager;
 
 	private Question[] questionPool;
@@ -70,7 +69,6 @@ public class GameConrtoller : MonoBehaviour {
 		dataController = FindObjectOfType<DataController> ();
 		currentRoundData = dataController.GetCurrentRoundData ();
         adManager = FindObjectOfType<AdManager>();
-        screenshotHandler = FindObjectOfType<ScreenshotHandler>();
         screenshotManager = FindObjectOfType<ScreenshotManager>();
 
         roundLimit = dataController.getNumberOfRounds();
@@ -186,13 +184,13 @@ public class GameConrtoller : MonoBehaviour {
 			//Add special amount of points to score
 			playerScore += currentRoundData.pointsAddedForSpecialAnswer;
 			scoreDisplayText.text = "Score: " + playerScore.ToString ();
-			Debug.Log ("Player scored special points");
+			//Debug.Log ("Player scored special points");
 		} else 
 		{
 			//Add normal amount of points
 			playerScore += currentRoundData.pointsAddedForNormalAnswer;
 			scoreDisplayText.text = "Score: " + playerScore.ToString ();
-			Debug.Log ("Player scored normal points");
+			//Debug.Log ("Player scored normal points");
 		}
 	}
 
@@ -211,15 +209,6 @@ public class GameConrtoller : MonoBehaviour {
 		}
 	}
 
-	public void AnswerButtonClicked(bool isSpecial)
-	{
-		if(unusedQuestions.Count == 0)
-		{
-			Debug.Log ("You ran out of questions!");
-			EndRound (false);
-			ReturnToMenu ();
-		}
-	}
 
 	public void EndRound(bool win)
 	{
@@ -235,7 +224,7 @@ public class GameConrtoller : MonoBehaviour {
             //End the round
             if (roundCounter == roundLimit)
             {
-                Debug.Log("User has reached the round limit");
+                //Debug.Log("User has reached the round limit");
                 nextRoundBtn.SetActive(false);
                 menuButton.SetActive(false);
                 toSummaryBtn.SetActive(true);
@@ -301,10 +290,10 @@ public class GameConrtoller : MonoBehaviour {
         timeRemainingDisplayText.enabled = false;
         timeRemainingHeader.enabled = false;
         summaryDisplay.SetActive(true);
-        
-        //Reset the finalScores text
-        finalScores.text = "";        
 
+        //AssetDatabase.Refresh();
+        //Resources.UnloadUnusedAssets();
+        
         //Display scores for each round
         for (int i = 0; i < dataController.getNumberOfRounds(); i++)
         {
@@ -312,13 +301,8 @@ public class GameConrtoller : MonoBehaviour {
             instancedScoreDisplayPrefab.transform.SetParent(GameObject.FindGameObjectWithTag("scoreDisplayContainer").transform, false);
 
             var script = instancedScoreDisplayPrefab.GetComponent<roundScoreDisplay>();
-            //Debug.Log
             script.setScoreText(i);
             script.loadImage(i);
-            
-
-            //finalScores.text += "Round " + (i+1) + ": " + dataController.returnRoundScores(i) + "\n";
-            //Debug.Log("Round " + i + " score is: " + dataController.returnRoundScores(i));
         }
 
         //finalScores.text += "\n\nTotal Score: " + dataController.getTotalScore();
@@ -345,7 +329,6 @@ public class GameConrtoller : MonoBehaviour {
     {
         isRoundActive = false;
         screenshotManager.TakeScreenshot();
-        //screenshotHandler.TakeScreenshot_Static(Screen.width, Screen.height);
         StartCoroutine(waitUntil(win));
     }
 
@@ -371,11 +354,11 @@ public class GameConrtoller : MonoBehaviour {
 
     IEnumerator waitUntil(bool win)
     {
-        Debug.Log("Waiting for screenshot to be taken...");
-        Debug.Log("roundCounter = " + roundCounter);
-        Debug.Log("screenshotCounter = " + screenshotManager.returnScreenshotCounter());
+        //Debug.Log("Waiting for screenshot to be taken...");
+        //Debug.Log("roundCounter = " + roundCounter);
+        //Debug.Log("screenshotCounter = " + screenshotManager.returnScreenshotCounter());
         yield return new WaitUntil(() => screenshotManager.returnScreenshotCounter() == roundCounter);
         EndRound(win);
-        Debug.Log("Ending Round");
+        //Debug.Log("Ending Round");
     }
 }

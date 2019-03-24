@@ -49,19 +49,20 @@ public class AnswerButton : MonoBehaviour {
 		return aCounter;
 	}
 
-	public void HandleClick()
-	{
-		//Check if the button has already been pressed
-		if (!isSelected) {
-			aCounter++;
-			//Put the button into a selected state
-			isSelected = true;
+    public void HandleClick()
+    {
+        //Check if the button has already been pressed
+        if (!isSelected)
+        {
+            aCounter++;
+            //Put the button into a selected state
+            isSelected = true;
 
-			//Add the points to the score
-			gameController.AddPoints (answerData.isSpecial);
+            //Add the points to the score
+            gameController.AddPoints(answerData.isSpecial);
 
             //Check that the current answer is in the currentAnswer list, if so, delete
-            if(gameController.currentAnswers.Contains(answerData.answerText))
+            if (gameController.currentAnswers.Contains(answerData.answerText))
             {
                 gameController.currentAnswers.Remove(answerData.answerText);
             }
@@ -69,25 +70,27 @@ public class AnswerButton : MonoBehaviour {
             //Print the entire list
             for (int i = 0; i < gameController.currentAnswers.Count; i++)
             {
-                Debug.Log(gameController.currentAnswers[i]);
+                //Debug.Log(gameController.currentAnswers[i]);
             }
 
             //Change the colour of the button
-            if (answerData.isSpecial) 
-			{
+            if (answerData.isSpecial)
+            {
                 gameObject.GetComponent<Button>().image.sprite = specialButtonSprite;
-			} else 
-			{
-				gameObject.GetComponent<Button> ().image.color = Color.green;
-			}
-		} else if (isSelected) 
-		{
-			aCounter--;
-			//Put the button into a de-selected state
-			isSelected = false;
+            }
+            else
+            {
+                gameObject.GetComponent<Button>().image.color = Color.green;
+            }
+        }
+        else if (isSelected)
+        {
+            aCounter--;
+            //Put the button into a de-selected state
+            isSelected = false;
 
-			//Remove the points from the score
-			gameController.RemovePoints (answerData.isSpecial);
+            //Remove the points from the score
+            gameController.RemovePoints(answerData.isSpecial);
 
             //Check that the current answer is in the currentAnswer list, if not, add
             if (!gameController.currentAnswers.Contains(answerData.answerText))
@@ -96,7 +99,7 @@ public class AnswerButton : MonoBehaviour {
             }
 
             //Print the entire list
-            for(int i = 0; i < gameController.currentAnswers.Count; i++)
+            for (int i = 0; i < gameController.currentAnswers.Count; i++)
             {
                 Debug.Log(gameController.currentAnswers[i]);
             }
@@ -105,12 +108,5 @@ public class AnswerButton : MonoBehaviour {
             gameObject.GetComponent<Button>().image.color = Color.white;
             gameObject.GetComponent<Button>().image.sprite = normalButtonSprite;
         }
-
-		//Check if the answer is correct and handle the click in the GameController
-		gameController.AnswerButtonClicked (answerData.isSpecial);
-		if (aCounter == 7) 
-		{
-			//allow the user to go to the next round.
-		}
-	}	
+    }
 }
