@@ -33,42 +33,45 @@ public class roundScoreDisplay : MonoBehaviour
 
     public void loadImage(int roundNum)
     {
-#if UNITY_EDITOR
-        Texture2D texture = GetScreenshotImage(Application.persistentDataPath + "Screenshot" + roundNum + ".png");
-        Sprite sp = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-        //loadedSprite = Resources.Load<Sprite>("Screenshots/Screenshot" + roundNum);
+        byte[] bytes;
+        bytes = System.IO.File.ReadAllBytes(Application.persistentDataPath + "Screenshot" + roundNum + ".png");
+        Texture2D textureToLoad = new Texture2D(996, 2048, TextureFormat.RGB24, false);
+        textureToLoad.LoadImage(bytes);
+        Sprite sp = Sprite.Create(textureToLoad, new Rect(0, 0, textureToLoad.width, textureToLoad.height), new Vector2(0.5f, 0.5f));
         imageDisplay.sprite = sp;
-#elif UNITY_ANDROID
-        StartCoroutine(loadTex(Application.persistentDataPath + "Screenshot" + roundNum + ".png"));
-#endif
-    }
+/**
+#if UNITY_EDITOR
+        byte[] bytes;
+        bytes = System.IO.File.ReadAllBytes(Application.persistentDataPath + "Screenshot" + roundNum + ".png");
+        Texture2D textureToLoad = new Texture2D(996, 2048, TextureFormat.RGB24, false);
+        textureToLoad.LoadImage(bytes);
+        Sprite sp = Sprite.Create(textureToLoad, new Rect(0, 0, textureToLoad.width, textureToLoad.height), new Vector2(0.5f, 0.5f));
+        imageDisplay.sprite = sp;
 
-    Texture2D GetScreenshotImage(string filePath)
-    {
-        Texture2D texture = null;
-        byte[] fileBytes;
-        if (File.Exists(filePath))
-        {
-            fileBytes = File.ReadAllBytes(filePath);
-            texture = new Texture2D(996, 2048, TextureFormat.RGB24, false);
-            texture.LoadImage(fileBytes);
-        }
-        return texture;
-    }
+        //loadedSprite = Resources.Load<Sprite>("Screenshots/Screenshot" + roundNum);
+        //imageDisplay.sprite = loadedSprite;
 
-    IEnumerator loadTex(string filePath)
-    {
-        //tex = new Texture2D(996, 2048, TextureFormat.RGB24, false);
-        //WWW www = new WWW(filePath);
-        //yield return www;
-        //tex = www.texture;
-        byte[] byteArray = File.ReadAllBytes(filePath);
-        tex.LoadImage(byteArray);
+        
+        //StartCoroutine(loadTex(Application.persistentDataPath + "/Screenshot" + roundNum + ".png"));
+
+        string filePath = Application.streamingAssetsPath + "/Screenshot" + roundNum + ".png";
+        WWW www = new WWW(filePath);
+        while (!www.isDone) { }
+        Texture2D tex;
+        tex = www.texture;
+        //byte[] byteArray = File.ReadAllBytes(filePath);
+        //tex.LoadImage(byteArray);
         Sprite sp = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
         imageDisplay.sprite = sp;
-        if(1 == 0)
-        {
-            yield return 1;
-        }
+        
+#elif UNITY_ANDROID
+        byte[] bytes;
+        bytes = System.IO.File.ReadAllBytes(Application.persistentDataPath + "/Screenshot" + roundNum + ".png");
+        Texture2D textureToLoad = new Texture2D(996, 2048, TextureFormat.RGB24, false);
+        textureToLoad.LoadImage(bytes);
+        Sprite sp = Sprite.Create(textureToLoad, new Rect(0, 0, textureToLoad.width, textureToLoad.height), new Vector2(0.5f, 0.5f));
+        imageDisplay.sprite = sp;
+#endif
+**/
     }
 }
