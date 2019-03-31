@@ -30,6 +30,7 @@ public class GameConrtoller : MonoBehaviour {
     public GameObject continueButtonLost;
     public GameObject scoreDisplayContainer;
     public GameObject scoreDisplayPrefab;
+    public GameObject zeroScoreText;
 
     public Text winScoreDisplay;
 	public Text loseScoreDisplay;
@@ -236,7 +237,11 @@ public class GameConrtoller : MonoBehaviour {
             currentAnswers.Clear();
         } else if (!win) //Player didn't get all the answers
 		{
-			dataController.addRoundScore (playerScore);
+            if (playerScore == 0)
+            {
+                zeroScoreText.SetActive(true);
+            }
+            dataController.addRoundScore (playerScore);
 			loseScoreDisplay.text = "Score: " + playerScore.ToString ();
             toSummaryBtnLost.SetActive(false);
 
