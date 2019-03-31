@@ -33,8 +33,19 @@ public class roundScoreDisplay : MonoBehaviour
 
     public void loadImage(int roundNum)
     {
+#if !UNITY_EDITOR
+        string url = Application.persistentDataPath +"/"+ "Screenshot" + roundNum + ".png";
+         var bytes = File.ReadAllBytes( url );
+         Texture2D texture = new Texture2D( 996, 2048 );
+         texture.LoadImage( bytes );
+        Sprite sp = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
+        imageDisplay.sprite= sp ;
+
+#else
+
         StartCoroutine(loadTex("Screenshots/Screenshot" + roundNum));
         Debug.Log("sping");
+#endif
         //Sprite sp = Sprite.Create(textureToLoad, new Rect(0, 0, textureToLoad.width, textureToLoad.height), new Vector2(0.5f, 0.5f));
         //imageDisplay.sprite = sp;
 

@@ -16,7 +16,12 @@ public class ScreenshotManager : MonoBehaviour
     {
         string fileName = "Screenshot" + screenshotCounter + ".png";
         //string pathToSave = Application.persistentDataPath + fileName;
+#if UNITY_EDITOR
         string pathToSave = "Assets/Resources/Screenshots/" + fileName;
+#elif UNITY_ANDROID
+        //Test for Android
+        string pathToSave = fileName;
+#endif
         ScreenCapture.CaptureScreenshot(pathToSave);
         //Debug.Log("Screenshot Taken");
         screenshotCounter++;
