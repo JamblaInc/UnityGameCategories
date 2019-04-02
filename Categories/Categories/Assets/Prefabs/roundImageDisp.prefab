@@ -116,7 +116,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 670.5, y: 1192.7}
+  m_SizeDelta: {x: 670, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5477176299577208956
 CanvasRenderer:
@@ -169,4 +169,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   imageDisplay: {fileID: 0}
   scoreText: {fileID: 5477176299091806823}
+  file: {fileID: 0}
   loadedSprite: {fileID: 0}

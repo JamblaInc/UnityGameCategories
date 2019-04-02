@@ -35,7 +35,7 @@ public class GameConrtoller : MonoBehaviour {
     public Text winScoreDisplay;
 	public Text loseScoreDisplay;
     public Text missedAnswerDisplay;
-    public Text finalScores;
+    public Text finalScoreText;
 
 	private DataController dataController;
 	private RoundData currentRoundData;
@@ -295,9 +295,6 @@ public class GameConrtoller : MonoBehaviour {
         timeRemainingDisplayText.enabled = false;
         timeRemainingHeader.enabled = false;
         summaryDisplay.SetActive(true);
-
-        //AssetDatabase.Refresh();
-        //Resources.UnloadUnusedAssets();
         
         //Display scores for each round
         for (int i = 0; i < dataController.getNumberOfRounds(); i++)
@@ -310,7 +307,7 @@ public class GameConrtoller : MonoBehaviour {
             script.loadImage(i);
         }
 
-        //finalScores.text += "\n\nTotal Score: " + dataController.getTotalScore();
+        finalScoreText.text = "Total Score: " + dataController.getTotalScore();
     }
 
 	public void ReturnToMenu()

@@ -36,7 +36,8 @@ public class roundScoreDisplay : MonoBehaviour
 #if !UNITY_EDITOR
         string url = Application.persistentDataPath +"/"+ "Screenshot" + roundNum + ".png";
         var bytes = File.ReadAllBytes( url );
-        Texture2D texture = new Texture2D( 996, 2048 );
+        //Texture2D texture = new Texture2D( 996, 2048 );
+        Texture2D texture = new Texture2D( 670, 1200 );
         texture.LoadImage( bytes );
         Sprite sp = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
         imageDisplay.sprite= sp ;
