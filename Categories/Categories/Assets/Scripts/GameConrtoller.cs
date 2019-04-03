@@ -31,6 +31,7 @@ public class GameConrtoller : MonoBehaviour {
     public GameObject scoreDisplayContainer;
     public GameObject scoreDisplayPrefab;
     public GameObject zeroScoreText;
+    public GameObject scrollBackgroundSummary;
 
     public Text winScoreDisplay;
 	public Text loseScoreDisplay;
@@ -295,6 +296,8 @@ public class GameConrtoller : MonoBehaviour {
         timeRemainingDisplayText.enabled = false;
         timeRemainingHeader.enabled = false;
         summaryDisplay.SetActive(true);
+        var theTransform = scrollBackgroundSummary.transform as RectTransform;
+        theTransform.sizeDelta = new Vector2(680*dataController.getNumberOfRounds(), 1192);
         
         //Display scores for each round
         for (int i = 0; i < dataController.getNumberOfRounds(); i++)
