@@ -32,6 +32,7 @@ public class GameConrtoller : MonoBehaviour {
     public GameObject scoreDisplayPrefab;
     public GameObject zeroScoreText;
     public GameObject scrollBackgroundSummary;
+    public GameObject loadingPanel;
 
     public Text winScoreDisplay;
 	public Text loseScoreDisplay;
@@ -284,9 +285,11 @@ public class GameConrtoller : MonoBehaviour {
 
     public void toSummary()
     {
+        loadingPanel.SetActive(true);
         //display an ad
         //adManager.playAd();
-
+        toSummaryBtn.SetActive(false);
+        toSummaryBtnLost.SetActive(false);
         //only display the summary panel
         winDisplay.SetActive(false);
         roundEndDisplay.SetActive(false);
@@ -296,6 +299,7 @@ public class GameConrtoller : MonoBehaviour {
         timeRemainingDisplayText.enabled = false;
         timeRemainingHeader.enabled = false;
         summaryDisplay.SetActive(true);
+        
         var theTransform = scrollBackgroundSummary.transform as RectTransform;
         theTransform.sizeDelta = new Vector2(680*dataController.getNumberOfRounds(), 1192);
         
@@ -311,6 +315,8 @@ public class GameConrtoller : MonoBehaviour {
         }
 
         finalScoreText.text = "Total Score: " + dataController.getTotalScore();
+
+        loadingPanel.SetActive(false);
     }
 
 	public void ReturnToMenu()

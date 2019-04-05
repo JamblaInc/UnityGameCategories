@@ -2188,7 +2188,7 @@
           "questions": "Mr Men Characters",
           "answers": [
             {
-              "answerText": "Mr Dizzy",
+              "answerText": "Mr Bump",
               "isSpecial": false
             },
             {
@@ -2200,8 +2200,8 @@
               "isSpecial": false
             },
             {
-              "answerText": "Mr Nobody",
-              "isSpecial": true
+              "answerText": "Mr Happy",
+              "isSpecial": false
             },
             {
               "answerText": "Mr Tickle",
@@ -2209,7 +2209,7 @@
             },
             {
               "answerText": "Mr Topsy-Turvy",
-              "isSpecial": false
+              "isSpecial": true
             },
             {
               "answerText": "Mr Slow",
@@ -2746,67 +2746,67 @@
           ]
         },
         {
-          "questions": "Pixar Movies",
+          "questions": "Transition Metals",
           "answers": [
             {
-              "answerText": "A Bug's Life",
-              "isSpecial": false
-            },
-            {
-              "answerText": "Brave",
-              "isSpecial": false
-            },
-            {
-              "answerText": "Coco",
-              "isSpecial": false
-            },
-            {
-              "answerText": "Finding Dory",
-              "isSpecial": false
-            },
-            {
-              "answerText": "Monsters, Inc.",
-              "isSpecial": false
-            },
-            {
-              "answerText": "The Good Dinosaur",
+              "answerText": "Cobalt",
               "isSpecial": true
             },
             {
-              "answerText": "Up",
+              "answerText": "Copper",
+              "isSpecial": false
+            },
+            {
+              "answerText": "Gold",
+              "isSpecial": false
+            },
+            {
+              "answerText": "Iron",
+              "isSpecial": false
+            },
+            {
+              "answerText": "Mercury",
+              "isSpecial": false
+            },
+            {
+              "answerText": "Silver",
+              "isSpecial": false
+            },
+            {
+              "answerText": "Zinc",
               "isSpecial": false
             }
           ]
         },
         {
-          "questions": "Pixar Movies",
+          "questions": "Dinosaurs",
           "answers": [
             {
-              "answerText": "A Bug's Life",
-              "isSpecial": false
-            },
-            {
-              "answerText": "Brave",
-              "isSpecial": false
-            },
-            {
-              "answerText": "Coco",
-              "isSpecial": false
-            },
-            {
-              "answerText": "Finding Dory",
-              "isSpecial": false
-            },
-            {
-              "answerText": "Monsters, Inc.",
-              "isSpecial": false
-            },
-            {
-              "answerText": "The Good Dinosaur",
+              "answerText": "Brachiosaurus",
               "isSpecial": true
             },
             {
-              "answerText": "Up",
+              "answerText": "Pterodactyl",
+              "isSpecial": false
+            },
+            {
+              "answerText": "Spinosaurus",
+              "isSpecial": false
+            },
+            {
+              "answerText": "Stegosaurus",
+              "isSpecial": false
+            },
+            {
+              "answerText": "Triceratops",
+              "isSpecial": false
+            },
+            {
+              "answerText": "Tyrannosaurus Rex",
+              "isSpecial": false
+            },
+            {
+              "answerText": "Velociraptor",
               "isSpecial": false
             }
           ]
